@@ -1,0 +1,31 @@
+# Language registry. Adding a language = add an entry here, import its data,
+# retrain/extend the tokenizer, continue training (spec §12.1).
+#
+# Pivot language: every translation that involves neither French on the source nor
+# on the target side goes through French (e.g. en -> dua = en -> fr -> dua).
+# Set to null to always translate directly.
+pivot: fr
+
+# status:
+#   pivot        the pivot language (French)
+#   active       has data and is in training
+#   candidate    planned, no data yet
+#   test-fixture fake language used only by the demo (never shipped)
+#
+# A direction is declared supported ONLY after evaluation (spec §5.2, §16).
+languages:
+  fr:  {name: "Français",  status: pivot}
+  en:  {name: "English",   status: active}
+  ewo: {name: "Ewondo",    status: candidate}
+  dua: {name: "Duala",     status: active}
+  bas: {name: "Bassa (Basaa)", status: candidate}
+  fub: {name: "Fulfulde (Adamawa)", status: candidate}
+  bbj: {name: "Ghomálá'",  status: candidate}
+  byv: {name: "Medumba",   status: candidate}
+  ybb: {name: "Yemba",     status: candidate}
+  lns: {name: "Lamnso'",   status: candidate}
+  bkm: {name: "Kom",       status: candidate}
+  xxa: {name: "Synthetic test language (not real)", status: test-fixture}
+
+# Filled in by humans after evaluation, e.g. ["fr-en", "en-fr", "fr-ewo"].
+supported_directions: []

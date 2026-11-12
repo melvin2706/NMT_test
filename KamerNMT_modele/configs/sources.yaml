@@ -1,0 +1,67 @@
+# Data sources used to build the training corpus.
+#
+# Fields:
+#   id         unique short id, written into every derived record   (required)
+#   path       file, relative to the project root                    (required)
+#   format     csv | tsv | jsonl | entries_jsonl | parallel_tsv | wiktionary_jsonl   (required)
+#   kind       dictionary | parallel                                 (required)
+#   language   code of the dictionary's headwords (dictionaries only)
+#   origin     free-text description of where the data comes from   (optional)
+#   validated  true if checked by a competent speaker; unreviewed pairs are
+#              only used with `python main.py --allow-unvalidated`
+#   enabled    false to leave a source out without deleting it      (optional)
+#   columns    csv/tsv only: mapping from the file's column names to
+#              headword, fr, en, pos, variants, synonyms, example_src, example_fr, example_en
+#
+# How to add a dictionary: docs/ajouter_un_dictionnaire.md
+
+# Any source whose id, path or origin contains one of these is refused
+# (independence from Cameroon-int8, spec §4.2).
+blocklist:
+  - "cameroon-int8"
+  - "flagship"
+
+sources:
+  # Duala -> French dictionary: entries, glosses and ~9,650 example sentences.
+  - id: duala-fr
+    path: data/dictionaries/duala_fr.json
+    format: entries_jsonl
+    kind: dictionary
+    language: dua
+    origin: "P. Helmlinger, Dictionnaire duala-français (1972), partie I, transcrite"
+    validated: true
+
+  # French -> Duala lexicon.
+  - id: fr-duala
+    path: data/dictionaries/fr_duala.json
+    format: entries_jsonl
+    kind: dictionary
+    language: dua
+    origin: "P. Helmlinger, Dictionnaire duala-français (1972), partie II (lexique), transcrite"
+    validated: true
+
+  # French -> English word pairs (Wiktionary), ~92,000 pairs.
+  - id: wiktionary-fr-en
+    path: data/dictionaries/dictionary-fr.json
+    format: wiktionary_jsonl
+    kind: dictionary
+    language: fr
+    gloss_language: en
+    origin: "English Wiktionary, compact export"
+    validated: true
+
+  # Example: your own dictionary as a CSV table (see docs/ajouter_un_dictionnaire.md)
+  # - id: ewondo-perso
+  #   path: data/dictionaries/ewondo.csv
+  #   format: csv
+  #   kind: dictionary
+  #   language: ewo
+  #   origin: "dictionnaire constitué pour KamerNMT"
+  #   validated: true
+  #
+  # Example: translated sentences (TSV with header src_lang tgt_lang src_text tgt_text [group] [validated])
+  # - id: fr-dua-phrases-1
+  #   path: data/dictionaries/fr-dua-phrases-1.tsv
+  #   format: parallel_tsv
+  #   kind: parallel
+  #   validated: true

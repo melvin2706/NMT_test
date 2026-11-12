@@ -1,0 +1,39 @@
+# Very small config used only by scripts/smoke_test to check the pipeline
+# runs end to end on CPU in a few minutes. Not a real model.
+experiment: smoke
+seed: 1
+
+model:
+  d_model: 64
+  n_heads: 4
+  encoder_layers: 2
+  decoder_layers: 2
+  ffn_dim: 128
+  dropout: 0.1
+  attention_dropout: 0.0
+  max_positions: 128
+  tie_embeddings: true
+
+data:
+  corpus_dir: work/smoke/corpus
+  tokenizer: work/smoke/tokenizer/unigram-400/spm.model
+  max_len: 64
+  sampling_temperature: 2.0
+  include_synthetic: false
+
+train:
+  device: cpu
+  max_tokens_per_batch: 2048
+  grad_accum: 1
+  lr: 0.003
+  warmup_steps: 100
+  max_steps: 1500
+  label_smoothing: 0.1
+  weight_decay: 0.0
+  clip_norm: 1.0
+  amp: false
+  eval_every: 250
+  save_every: 250
+  keep_checkpoints: 2
+  early_stopping_patience: 100
+  out_dir: work/smoke/run

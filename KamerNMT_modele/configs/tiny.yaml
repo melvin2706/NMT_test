@@ -1,0 +1,38 @@
+# Spec §8.2 "Tiny". 9.4M parameters with an 8k vocabulary (11.5M at 16k).
+experiment: tiny-v1
+seed: 1234
+
+model:
+  d_model: 256
+  n_heads: 4
+  encoder_layers: 4
+  decoder_layers: 4
+  ffn_dim: 1024
+  dropout: 0.1
+  attention_dropout: 0.1
+  max_positions: 256
+  tie_embeddings: true
+
+data:
+  corpus_dir: data/corpus/v1
+  tokenizer: artifacts/tokenizer/unigram-8000/spm.model
+  max_len: 128
+  sampling_temperature: 5.0
+  include_synthetic: false
+
+train:
+  device: auto
+  max_tokens_per_batch: 8192
+  grad_accum: 1
+  lr: 0.001
+  warmup_steps: 2000
+  max_steps: 60000
+  label_smoothing: 0.1
+  weight_decay: 0.0001
+  clip_norm: 1.0
+  amp: true
+  eval_every: 1000
+  save_every: 1000
+  keep_checkpoints: 5
+  early_stopping_patience: 8
+  out_dir: runs/tiny-v1

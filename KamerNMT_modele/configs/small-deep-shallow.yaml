@@ -1,0 +1,41 @@
+# Speed-oriented variant of small.yaml: deeper encoder, shallow decoder.
+# The decoder runs once per generated token, the encoder once per sentence,
+# so moving layers from the decoder to the encoder cuts translation latency.
+# Same width as Small (d=512); `python -m kamernmt.cli params` prints the exact size.
+experiment: small-deep-shallow-v1
+seed: 1234
+
+model:
+  d_model: 512
+  n_heads: 8
+  encoder_layers: 8
+  decoder_layers: 2
+  ffn_dim: 2048
+  dropout: 0.1
+  attention_dropout: 0.1
+  max_positions: 256
+  tie_embeddings: true
+
+data:
+  corpus_dir: data/corpus/v1
+  tokenizer: artifacts/tokenizer/unigram-16000/spm.model
+  max_len: 128
+  sampling_temperature: 5.0
+  include_synthetic: false
+
+train:
+  device: auto
+  max_tokens_per_batch: 8192
+  grad_accum: 2
+  lr: 0.0007
+  warmup_steps: 4000
+  max_steps: 100000
+  label_smoothing: 0.1
+  weight_decay: 0.0001
+  clip_norm: 1.0
+  amp: true
+  eval_every: 2000
+  save_every: 2000
+  keep_checkpoints: 5
+  early_stopping_patience: 8
+  out_dir: runs/small-deep-shallow-v1

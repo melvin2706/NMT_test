@@ -1,0 +1,62 @@
+{
+  "corpus_version": "v1",
+  "content_sha256": "21ebdbe1c7bdae9fed90edf742ec4065d4f95b655a80507144d63274523eccce",
+  "created_utc": "2026-11-12T21:22:22+00:00",
+  "python": "3.14.7",
+  "seed": 1234,
+  "valid_frac": 0.05,
+  "test_frac": 0.05,
+  "allow_unvalidated": false,
+  "sources": [
+    {
+      "id": "duala-fr",
+      "path": "data/dictionaries/duala_fr.json",
+      "sha256": "6c4cfc1cfe0095e417552288d8d1078c3875610130f7bfb0929312246f1fba66",
+      "origin": "P. Helmlinger, Dictionnaire duala-français (1972), partie I, transcrite",
+      "records": 7885
+    },
+    {
+      "id": "fr-duala",
+      "path": "data/dictionaries/fr_duala.json",
+      "sha256": "0d50262ccc4d96b28e0a3fec3ebdab3a9bed3fc32abf2e949f2c436e99b7d3d8",
+      "origin": "P. Helmlinger, Dictionnaire duala-français (1972), partie II (lexique), transcrite",
+      "records": 14455
+    },
+    {
+      "id": "wiktionary-fr-en",
+      "path": "data/dictionaries/dictionary-fr.json",
+      "sha256": "dadb1b9600fa99bbbbd8444c1b49b95e288a695d8277141bcd22c30b256c70c2",
+      "origin": "English Wiktionary, compact export",
+      "records": 58198
+    }
+  ],
+  "lexicon_entries": 80538,
+  "raw_pairs": 127482,
+  "quarantined": 0,
+  "duplicates_removed": 8500,
+  "eval_sentences_also_in_train": 290,
+  "issues": {
+    "length_ratio": 6766,
+    "digits_mismatch": 387
+  },
+  "directions": {
+    "train": {
+      "dua-fr": 30940,
+      "en-fr": 91333,
+      "fr-dua": 30940,
+      "fr-en": 91333
+    },
+    "valid": {
+      "dua-fr": 479,
+      "fr-dua": 479
+    },
+    "test": {
+      "dua-fr": 480,
+      "fr-dua": 480
+    }
+  },
+  "kinds": {
+    "dictionary_headword": 227494,
+    "dictionary_example": 18970
+  }
+}

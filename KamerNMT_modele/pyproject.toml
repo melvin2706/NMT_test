@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kamernmt"
+version = "0.2.0"
+description = "Multilingual NMT for Cameroonian languages, French (pivot) and English — CPU, offline."
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.2",
+  "sentencepiece>=0.2",
+  "ctranslate2>=4.3",
+  "sacrebleu>=2.4",
+  "pyyaml>=6",
+  "psutil>=5.9",
+  "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+onnx = ["onnx>=1.16", "onnxruntime>=1.18", "onnxscript"]
+
+[project.scripts]
+kamernmt = "kamernmt.translate_cli:main"
+kamernmt-server = "kamernmt.server:main"
+
+[tool.setuptools.packages.find]
+include = ["kamernmt*"]

@@ -1,0 +1,39 @@
+# Main candidate (spec §8.2 "Small"). With a 16k shared vocabulary this is
+# roughly 52M parameters; `python -m kamernmt.cli params` prints the exact count.
+experiment: small-v1
+seed: 1234
+
+model:
+  d_model: 512
+  n_heads: 8
+  encoder_layers: 6
+  decoder_layers: 6
+  ffn_dim: 2048
+  dropout: 0.1
+  attention_dropout: 0.1
+  max_positions: 256
+  tie_embeddings: true      # encoder, decoder and output projection share one matrix
+
+data:
+  corpus_dir: data/corpus/v1          # output of `cli build-corpus`
+  tokenizer: artifacts/tokenizer/unigram-16000/spm.model
+  max_len: 128                        # tokens, after language tags
+  sampling_temperature: 5.0           # T=1 natural sizes, T>1 boosts small directions
+  include_synthetic: false            # back-translated data (marked in corpus)
+
+train:
+  device: auto              # auto | cpu | cuda
+  max_tokens_per_batch: 8192
+  grad_accum: 2
+  lr: 0.0007
+  warmup_steps: 4000
+  max_steps: 100000
+  label_smoothing: 0.1
+  weight_decay: 0.0001
+  clip_norm: 1.0
+  amp: true                 # mixed precision on GPU only
+  eval_every: 2000
+  save_every: 2000
+  keep_checkpoints: 5
+  early_stopping_patience: 8   # evaluations without validation improvement
+  out_dir: runs/small-v1

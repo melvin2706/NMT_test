@@ -1,0 +1,31 @@
+# KamerNMT — bibliothèques Python nécessaires (Python >= 3.10, testé avec 3.14)
+#
+# Installation (CPU, recommandé) :
+#   python -m venv .venv
+#   .venv/Scripts/python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   .venv/Scripts/python -m pip install -r requirements.txt
+#
+# Sur une machine avec GPU NVIDIA, installer à la place la version CUDA de torch
+# (voir https://pytorch.org/get-started/locally/) avant la ligne -r requirements.txt.
+
+# Modèle et entraînement
+torch>=2.2            # testé : 2.15.0+cpu
+numpy>=1.24           # testé : 2.5.4
+pyyaml>=6.0           # testé : 6.0.3
+
+# Tokenizer
+sentencepiece>=0.2    # testé : 0.2.3
+
+# Évaluation et benchmark
+sacrebleu>=2.4        # testé : 2.6.0  (BLEU, chrF++, TER)
+psutil>=5.9           # testé : 7.2.2  (mémoire, CPU)
+
+# Inférence CPU optimisée (export INT8)
+ctranslate2>=4.3      # testé : 4.8.5
+onnx>=1.16            # testé : 1.23.2
+onnxruntime>=1.18     # testé : 1.31.1
+onnxscript>=0.1       # testé : 0.7.2
+
+# Optionnel : relecture avec les pages scannées (scripts/dictionary_review.py --pdf)
+pypdfium2>=4.0        # testé : 5.15.0
+pillow>=10.0          # testé : 13.0.0
